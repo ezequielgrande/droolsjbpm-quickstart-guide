@@ -1,0 +1,33 @@
+//created on: Aug 30, 2014
+package com.wordpress.ezegrande.drools.examples.simple;
+
+import com.wordpress.ezegrande.drools.examples.model.PaymentMethod;
+import com.wordpress.ezegrande.drools.examples.model.Purchase;
+
+global org.slf4j.Logger logger;
+ 
+dialect "mvel"
+
+rule "Cash purchases have no discount"
+    when
+        $p:Purchase(paymentMethod == PaymentMethod.CASH)
+    then
+        $p.setDiscount(0);
+	    logger.info("\t==> Executing RULE 'Cash purchases have no discount' for Object: " + $p);
+end
+
+rule "Debit Card purchases have 5% of discount"
+    when
+        $p:Purchase(paymentMethod == PaymentMethod.DEBIT)
+    then
+    	$p.setDiscount(0.05);
+    	logger.info("\t==> Executing RULE 'Debit Card purchases have 5% of discount' for Object: " + $p);
+end
+
+rule "Credit Card purchases have 10% of discount"
+    when
+        $p:Purchase(paymentMethod == PaymentMethod.CREDIT)
+    then
+    	$p.setDiscount(0.1);
+        logger.info("\t==> Executing RULE 'Credit Card purchases have 10% of discount' for Object: " + $p);
+end

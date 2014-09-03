@@ -1,0 +1,53 @@
+//created on: Aug 30, 2014
+package com.wordpress.ezegrande.drools.examples.simple;
+
+import com.wordpress.ezegrande.drools.examples.model.Purchase;
+import com.wordpress.ezegrande.drools.examples.model.PotentialCustomer;
+
+global org.slf4j.Logger logger;
+global com.wordpress.ezegrande.drools.examples.service.EmailService emailService;
+ 
+dialect "mvel"
+
+/*
+  We want to offer our Credit Card to Potential Customers. We assume that a Potential Customer is
+  someone who has spent more than $300 in a single Cash Purchase.
+  
+  NOTE: This rule will be fired for each Cash Purchase > $300, so we might have more than one PotentialCustomer
+  object for a same Customer. The fix for this is shown in the next example (potentialCustomer02.drl)  
+*/
+rule "Identify potential customers"
+    when
+        $p:Purchase(paymentMethod == PaymentMethod.CASH, subtotal > 300)
+    then
+	    logger.info("\t==> Potential Customer found! " + $p);
+	    
+	    // Create a new Potential Customer object
+	    PotentialCustomer pc = new PotentialCustomer($p.getCustomerName(), $p.getSubtotal()*0.80);
+	    
+	    // Insert the Potential Customer object into the Working Memory
+	    insert(pc);
+end
+
+rule "Send an email offer to Potential Customers with credit limit lower or equal than $500"
+    when
+        $pc:PotentialCustomer(creditLimit<=500)
+    then
+	    logger.info("\t==> Sending email to Potential Customer: " + $pc);
+
+	   // Here an email service will send the email...
+	   emailService.sendCreditCardOffer($pc)
+end
+
+rule "Call Potential Customers with credit limit over $500"
+    when
+        $pc:PotentialCustomer(creditLimit>500)
+    then
+	    logger.info("\t==> Calling Potential Customer: " + $pc);
+
+	   // Here we could notify someone in the call center to call the Potential customer
+	   
+	   // ...
+	   
+	   // We could also start a process instance of a Business Process
+end
