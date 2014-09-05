@@ -104,6 +104,8 @@ public class AllRulesTestCase {
             Assert.assertEquals("john", pc.getCustomerName());
         }
 
+        // Release resources
+        session.dispose();
         logger.info("===> End of test <===\n");
     }
 

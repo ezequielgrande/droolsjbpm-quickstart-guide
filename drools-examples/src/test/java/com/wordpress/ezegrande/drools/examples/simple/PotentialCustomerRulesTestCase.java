@@ -107,6 +107,8 @@ public class PotentialCustomerRulesTestCase {
         factHandles = session.getFactHandles(new ClassObjectFilter(PotentialCustomer.class));
         Assert.assertEquals(1, factHandles.size());
 
+        // Release resources
+        session.dispose();
         logger.info("===> End of test <===\n");
     }
 
@@ -167,6 +169,8 @@ public class PotentialCustomerRulesTestCase {
             Assert.assertEquals("john", pc.getCustomerName());
         }
 
+        // Release resources
+        session.dispose();
         logger.info("===> End of test <===\n");
     }
 
@@ -226,7 +230,9 @@ public class PotentialCustomerRulesTestCase {
             Assert.assertEquals("john", pc.getCustomerName());
         }
 
-        logger.info("===> End of test <===\n");
+        // Release resources
+        session.dispose();
+       logger.info("===> End of test <===\n");
     }
 
 }

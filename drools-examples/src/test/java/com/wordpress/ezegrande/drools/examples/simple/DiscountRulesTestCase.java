@@ -15,17 +15,17 @@ import com.wordpress.ezegrande.drools.examples.model.PaymentMethod;
 import com.wordpress.ezegrande.drools.examples.model.Purchase;
 
 /**
- * Tests cases for the Business Rules included in the file
- * 'discount.drl". The goal of this rules is to apply a discount to
- * a Purchase based on the Payment Method. There are three different cases:
+ * Tests cases for the Business Rules included in the file 'discount.drl". The
+ * goal of these rules is to apply a discount to a Purchase based on the Payment
+ * Method. There are three different cases:
  * <ul>
  * <li>Cash purchases have no discount
  * <li>Debit Card purchases have 5% of discount
  * <li>Credit Card purchases have 10% of discount
  * </ul>
  * 
- * A Global Variable is used for Logging purposes. To set a variable in the
- * session, use the methods {@link KieSession#setGlobal(String, Object)} and
+ * A Global Variable is used for Logging purposes. To set a Global Variable in
+ * the session, use the methods {@link KieSession#setGlobal(String, Object)} and
  * {@link StatelessKieSession#setGlobal(String, Object)}. In the DRL file it
  * must be defined in this way: 'global com.package.ClassName variableName'. For
  * example, 'global org.slf4j.Logger logger'.
@@ -123,6 +123,8 @@ public class DiscountRulesTestCase {
         Assert.assertEquals(0.05, debitPurchase.getDiscount());
         Assert.assertEquals(0.1, creditPurchase.getDiscount());
 
+        // Release resources
+        session.dispose();
         logger.info("===> End of test <===\n");
     }
 }
