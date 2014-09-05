@@ -79,6 +79,7 @@ public class PotentialCustomerRulesTestCase {
         KieSession session = TestUtil.createKieSession(DRL01_PATH);
         // Add SLF4j Logger as a Global Variable
         session.setGlobal("logger", logger);
+        // Add the Email Service as a Global Variable
         session.setGlobal("emailService", EmailService.getInstance());
 
         // Create objects that will be inserted into the Session
