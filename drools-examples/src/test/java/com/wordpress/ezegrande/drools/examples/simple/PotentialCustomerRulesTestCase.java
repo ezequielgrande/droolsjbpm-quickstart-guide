@@ -67,7 +67,7 @@ public class PotentialCustomerRulesTestCase {
      * <li>Customer 'george' spends $500 in Credit Card
      * </ul>
      * 
-     * The first Purchase will be the only one that will trigger the Rule that
+     * The second Purchase will be the only one that will trigger the Rule that
      * identifies a Potential Customer. Because of this, after firing the Rules
      * there will be only one "PotentialCustomer" object in the working memory
      * (inserted by the triggered Rule).
@@ -106,6 +106,9 @@ public class PotentialCustomerRulesTestCase {
         // After firing the rules, the Potential Customer has been inserted
         factHandles = session.getFactHandles(new ClassObjectFilter(PotentialCustomer.class));
         Assert.assertEquals(1, factHandles.size());
+        FactHandle fh  = factHandles.iterator().next();
+        PotentialCustomer pc = (PotentialCustomer) ((DefaultFactHandle) fh).getObject();
+        Assert.assertEquals("mary", pc.getCustomerName());
 
         // Release resources
         session.dispose();
