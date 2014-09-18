@@ -140,6 +140,7 @@ public class PotentialCustomerRulesTestCase {
         KieSession session = TestUtil.createKieSession(DRL01_PATH);
         // Add SLF4j Logger as a Global Variable
         session.setGlobal("logger", logger);
+        // Add the Email Service as a Global Variable
         session.setGlobal("emailService", EmailService.getInstance());
 
         // Create objects that will be inserted into the Session
@@ -180,9 +181,9 @@ public class PotentialCustomerRulesTestCase {
 
     /**
      * Tests the Rule 'Identify potential customers' of the DRL file
-     * 'potentialCustomer02.drl'. It will insert the following Purchases
-     * into the Working Memory in order to evaluate if they are correctly
-     * evaluated by the rules:
+     * 'potentialCustomer02.drl'. It will insert the following Purchases into
+     * the Working Memory in order to evaluate if they are correctly evaluated
+     * by the rules:
      * <ul>
      * <li>Customer 'john' spends $350 in Cash
      * <li>Customer 'mary' spends $250 in Cash
@@ -190,10 +191,10 @@ public class PotentialCustomerRulesTestCase {
      * <li>Customer 'george' spends $500 in Credit Card
      * </ul>
      * 
-     * Note that 'john' has two associated Purchases which will trigger the Rule
-     * being tested. This version of the Rule works OK since it validates if
-     * there is a "PotentialCustomer" object in memory before inserting a new
-     * one.
+     * Note that 'john' has two associated Purchases that should be taken into
+     * account in order to consider John a Potential Customer. This version of
+     * the Rule (potentialCustomer02.drl) works OK since it validates if there
+     * is a "PotentialCustomer" object in memory before inserting a new one.
      */
     @Test
     public void testIdentifyPotentialCustomer_Two_Purchases_OK() {
