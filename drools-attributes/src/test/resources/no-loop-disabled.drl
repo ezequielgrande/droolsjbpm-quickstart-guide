@@ -1,0 +1,22 @@
+package com.wordpress.ezegrande.drools.attributes.noloopdisabled
+
+import org.slf4j.Logger;
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global Logger logger;
+
+/**
+ * This rule updates the recipient
+**/
+rule "Take ownership of Chocolates Gifts"
+    when
+		$g: Gift(description == "Chocolates")
+    then
+    	modify ($g) {
+    	  // This modification will trigger again this rule for this Gift object.
+    	  // This will cause an infinite loop, since the execution of the consequence
+    	  // will trigger again the rule 
+    	  setRecipient("me");
+    	}
+end

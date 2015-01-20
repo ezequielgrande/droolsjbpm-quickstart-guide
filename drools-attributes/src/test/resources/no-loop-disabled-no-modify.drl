@@ -1,0 +1,20 @@
+package com.wordpress.ezegrande.drools.attributes.noloopdisabled
+
+import org.slf4j.Logger;
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global Logger logger;
+
+/**
+ * This rule updates the recipient
+**/
+rule "Take ownership of Chocolates Gifts"
+    when
+		$g: Gift(description == "Chocolates")
+    then
+    	// Note that here we modify the object but we do not use the modify clause.
+    	// Because of this, the engine will not be aware of the Gift object modification
+    	// and it will not trigger again the rule for this object.
+    	$g.setRecipient("me");
+end

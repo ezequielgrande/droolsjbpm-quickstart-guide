@@ -1,0 +1,35 @@
+package com.wordpress.ezegrande.drools.attributes.dateexpires
+
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global List gifts;
+
+// Note that in Drools the date format dd-mmm-yyyy is supported by default.
+// It can be overridden by the system property drools.dateformat
+
+
+/**
+ * This rule will be not triggered since it has expired on 2010
+**/
+rule "Give chocolates as a gift until January 1st 2010"
+dialect "java"
+date-expires "01-Jan-2010"
+    when
+		$p: Person()
+    then
+    	gifts.add(new Gift("Chocolates", $p.getName()));
+end
+
+/**
+ * This rule will be triggered since it is still valid
+**/
+rule "Give fruits as a gift until January 1st 2150"
+dialect "java"
+date-expires "01-Jan-2150"
+    when
+		$p: Person()
+    then
+    	gifts.add(new Gift("Fruits", $p.getName()));
+end
+

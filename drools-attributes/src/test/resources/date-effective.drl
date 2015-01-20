@@ -1,0 +1,36 @@
+package com.wordpress.ezegrande.drools.attributes.dateeffective
+
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global List gifts;
+
+// Note that in Drools the date format dd-mmm-yyyy is supported by default.
+// It can be overridden by the system property drools.dateformat
+
+
+/**
+ * This rule will be triggered for each person since we already passed the date-affective
+**/
+rule "Give chocolates as a gift, effective from January 1st 2010"
+dialect "java"
+date-effective "01-Jan-2010"
+    when
+		$p: Person()
+    then
+    	gifts.add(new Gift("Chocolates", $p.getName()));
+end
+
+/**
+ * At the moment this rule will not be triggered since the date-affective is far away from today.
+ * Or at least, I won't be here in the year 2150 for testing it :D
+**/
+rule "Give a Flight to Mars as a gift, effective from January 1st 2150"
+dialect "java"
+date-effective "01-Jan-2150"
+    when
+		$p: Person()
+    then
+    	gifts.add(new Gift("Flight to Mars", $p.getName()));
+end
+

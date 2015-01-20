@@ -1,0 +1,22 @@
+package com.wordpress.ezegrande.drools.attributes.noloopdisabled
+
+import org.slf4j.Logger;
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global Logger logger;
+
+/**
+ * This rule updates the recipient
+**/
+rule "Take ownership of Chocolates Gifts"
+no-loop
+    when
+		$g: Gift(description == "Chocolates")
+    then
+    	modify ($g) {
+    	  // The rule will not be triggered again for this Gift object,
+    	  // since the no-loop is activated.
+    	  setRecipient("me");
+    	}
+end

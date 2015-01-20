@@ -1,0 +1,31 @@
+package com.wordpress.ezegrande.drools.attributes.salienceattr
+
+import java.util.List;
+
+global List messages;
+
+// NOTE: The higher the salience value, the higher the priority
+
+rule "Initialization"
+salience 1
+    when
+		// Empty condition so it is triggered once
+    then
+    	messages.add("FIRST");
+end
+
+rule "Some rule"
+// Default salience is 0
+    when
+		// Empty condition so it is triggered once
+    then
+    	messages.add("SECOND");
+end
+
+rule "Finalization"
+salience -1
+    when
+		// Empty condition so it is triggered once
+    then
+    	messages.add("THIRD");
+end

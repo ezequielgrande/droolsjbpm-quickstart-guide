@@ -1,0 +1,22 @@
+package com.wordpress.ezegrande.drools.attributes.durationattr
+
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global List gifts;
+
+// Note that in Drools the date format dd-mmm-yyyy is supported by default.
+// It can be overridden by the system property drools.dateformat
+
+
+/**
+ * This rule will be triggered 5 minutes after the condition was met (if condition is still met)
+**/
+rule "Give chocolates as a gift after 5 minutes of detecting a Person"
+dialect "java"
+duration( 5s )
+    when
+		$p: Person()
+    then
+    	gifts.add(new Gift("Chocolates", $p.getName()));
+end

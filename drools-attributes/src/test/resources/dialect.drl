@@ -1,0 +1,43 @@
+package com.wordpress.ezegrande.drools.attributes.dialectattr
+
+import java.util.List;
+import com.wordpress.ezegrande.drools.attributes.model.*;
+
+global List adults;
+global List gifts;
+
+/**
+ * This rule uses Java code expressions.
+ * When there is a Person older than 21, adds it to the list of adults
+**/
+rule "Java dialect rule - Identify adult people"
+dialect "java"
+    when
+		$p: Person(age > 21)
+    then
+    	adults.add($p);
+end
+
+/**
+ * This rule uses MVEL code expressions.
+ * When there is a Person which name is in a list of known names, adds a new instance
+ * of Gift to the gifts list.
+**/
+rule "Mvel dialect rule - Give chocolates to my friends"
+dialect "mvel"
+    when
+    	$p: Person()
+    	eval(["John", "Mary", "Paul"] contains $p.name)
+    then
+    	friendName = $p.name;
+		// the following array will be used in a foreach block
+		// it contains only one element, so the foreach block will only iterate once
+		// this code is here just to show some mvel syntax 
+		dummyArray = {'onlyOneIteration'};
+		foreach (iteration : dummyArray) {
+   			gifts.add(new Gift().{
+   				description = 'Chocolates',
+	   			recipient = friendName
+	   		});
+		}
+end
