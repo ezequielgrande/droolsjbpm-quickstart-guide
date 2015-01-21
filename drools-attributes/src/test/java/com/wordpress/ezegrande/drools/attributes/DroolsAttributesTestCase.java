@@ -24,7 +24,7 @@ import com.wordpress.ezegrande.drools.util.TestUtil;
  * attributes.
  * 
  * @author ezegrande
- * @see http://ezegrande.wordpress.com/2014/12/01/drools-rules-attributes
+ * @see http://ezegrande.wordpress.com/2015/01/21/drools-rules-attributes
  */
 public class DroolsAttributesTestCase {
     private static final String FIRST = "FIRST";
